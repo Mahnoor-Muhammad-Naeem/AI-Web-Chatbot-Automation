@@ -1,0 +1,278 @@
+{
+  "name": "My workflow 24",
+  "nodes": [
+    {
+      "parameters": {
+        "public": true,
+        "initialMessages": "Hi there! 👋\nMy name is Mahnoor. How can I assist you today?",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        -224,
+        -144
+      ],
+      "id": "50d95cea-8020-4313-b7f6-ba2f6b626163",
+      "name": "When chat message received",
+      "webhookId": "165790ed-d715-4b44-ba03-6892829d2a72"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "Bot Instructions:\n\nThe bot will support all languages.\n\nIf a customer asks in Hindi, reply in Hindi.\n\nIf in Bengali, reply in Bengali.\n\nIf in English, reply in English.\n(Always reply in the same language the customer uses.)\n\nThe first welcome message will be:\n“Welcome to our learning platform!\nHow can I help you today?”\n\nIf the question matches course data →\n→ Show the course name and description.\n\nIf the question matches FAQ data →\n→ Give the exact FAQ answer.\n\nIf the information is NOT available in FAQ or Courses →\n\nDo NOT try to create or guess an answer.\n\nClearly reply:\n“Sorry, we don’t have this information right now.\nWe have noted your question. Please share your mobile number\nso that our team can contact you soon.”\n\nSave the customer’s question and mobile number\ninto the ‘Unanswered Queries’ sheet."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        -16,
+        -144
+      ],
+      "id": "6eec9843-c0fe-47d3-8b04-fb6ede2880a1",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        -160,
+        64
+      ],
+      "id": "d5f7f470-c286-44a9-b26f-2fb18b0016fa",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "pfByQl103Gn0XTUg",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "contextWindowLength": 10
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        -16,
+        64
+      ],
+      "id": "824c83b3-d2ea-45b9-bc09-77723b56a3d9",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1oj5o1TUsMx1rH1L9-VBatMin1tE3tGLnoWBlznj3leU",
+          "mode": "list",
+          "cachedResultName": "Course Data",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1oj5o1TUsMx1rH1L9-VBatMin1tE3tGLnoWBlznj3leU/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1605323839,
+          "mode": "list",
+          "cachedResultName": "Courses",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1oj5o1TUsMx1rH1L9-VBatMin1tE3tGLnoWBlznj3leU/edit#gid=1605323839"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        144,
+        64
+      ],
+      "id": "6853944c-9f8b-4343-b9b4-921d5f243994",
+      "name": "Get Course Info",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "gLwfjd5HVVbsHl5E",
+          "name": "Google Sheets account 6"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1oj5o1TUsMx1rH1L9-VBatMin1tE3tGLnoWBlznj3leU",
+          "mode": "list",
+          "cachedResultName": "Course Data",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1oj5o1TUsMx1rH1L9-VBatMin1tE3tGLnoWBlznj3leU/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 671344304,
+          "mode": "list",
+          "cachedResultName": "FAQ",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1oj5o1TUsMx1rH1L9-VBatMin1tE3tGLnoWBlznj3leU/edit#gid=671344304"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        288,
+        48
+      ],
+      "id": "344a050c-4dcf-4822-aa33-81226ad0016d",
+      "name": "Get FAQ",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "oQEfLPHoZJxIXYoH",
+          "name": "Google Sheets account 7"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1oj5o1TUsMx1rH1L9-VBatMin1tE3tGLnoWBlznj3leU",
+          "mode": "list",
+          "cachedResultName": "Course Data",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1oj5o1TUsMx1rH1L9-VBatMin1tE3tGLnoWBlznj3leU/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 659435447,
+          "mode": "list",
+          "cachedResultName": "Unanswered Queries",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1oj5o1TUsMx1rH1L9-VBatMin1tE3tGLnoWBlznj3leU/edit#gid=659435447"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Customer Question": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Customer_Question', ``, 'string') }}",
+            "Mobile Number": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Mobile_Number', ``, 'string') }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Customer Question",
+              "displayName": "Customer Question",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Mobile Number",
+              "displayName": "Mobile Number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        464,
+        32
+      ],
+      "id": "3edcaa6d-3a68-459a-a0db-a99d7f0bb4f5",
+      "name": "Append row in sheet in Google Sheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "hqXQ2LRx34n31EwX",
+          "name": "Google Sheets account 9"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Course Info": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get FAQ": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet in Google Sheets": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "4824f571-5495-4c71-b78c-36bee811ef9a",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "3995614c53330b8235732b6439f4722022fa77b84f9cd17e44c49abe50c94c1f"
+  },
+  "id": "9j7v017jmeh1f3Nz",
+  "tags": []
+}
