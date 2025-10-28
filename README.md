@@ -69,6 +69,18 @@ The n8n flow connects multiple nodes for end-to-end automation:
 
 ---
 
+## 🧠 AI Agent Prompt Configuration
+
+### Prompt 1 – Initial System Message
+![Prompt 1 – Initial System Message](./prompt%201.png)
+
+### Prompt 2 – Multilingual Responses Test
+![Prompt 2 – Multilingual Responses Test](./prompt%202.png)
+
+### Prompt 3 – Course Information Flow
+![Prompt 3 – Course Information Flow](./prompt%203.png)
+
+
 ## ⚙️ How to Use
 
 ### 1️⃣ Import Workflow
