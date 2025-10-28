@@ -37,7 +37,35 @@ The n8n flow connects multiple nodes for end-to-end automation:
 - **Get Course Info / Get FAQ:** Read from Google Sheets  
 - **Append Row:** Store chat logs in Google Sheets  
 
-![Workflow Screenshot](docs/screenshots/flow.png)
+## 📸 Project Screenshots
+
+### AI Web Chatbot Automation (Full Canvas)
+![AI Web Chatbot Automation](./ai%20web%20chatbot%20automation.png)
+
+### Chat Message (Trigger)
+![Chat Message](./chat%20message.png)
+
+### AI Agent
+![AI Agent](./ai%20agent.png)
+
+### Google Gemini Chat Model
+![Google Gemini Chat Model](./google%20gemini.png)
+
+### Simple Memory (Buffer Window)
+![Simple Memory](./simple%20memory.png)
+
+### Get Course Information
+![Get Course Information](./get%20course%20information.png)
+
+### Get Course Info (Alternate)
+![Get Course Info](./get%20course%20info.png)
+
+### Get FAQ
+![Get FAQ](./get%20faq.png)
+
+### Append Row in Sheet
+![Append Row in Sheet](./append%20row.png)
+
 
 ---
 
